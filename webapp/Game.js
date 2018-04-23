@@ -56,7 +56,6 @@ class Game {
 		var cube = new THREE.Mesh(geometry, material);
 		var startPosition = this.getPositionWithOffset(0.5);
 		startPosition.y -= 0.2;
-		this.isHit(startPosition);
 		var endPosition = this.getPositionWithOffset(10);
 		cube.position.copy(startPosition);
 		cube.quaternion.copy(this.getOrientation());
@@ -65,9 +64,8 @@ class Game {
 			cube.position.x = startPosition.x;
 			cube.position.y = startPosition.y;
 			cube.position.z = startPosition.z;
-			var box = new THREE.Box3().setFromObject(this.tieFighter);
 			var laserBox = new THREE.Box3().setFromObject(cube);
-			if (box.intersectsBox(laserBox)) {
+			if (this.tieFighterBox.intersectsBox(laserBox)) {
 				scene.remove(cube);
 				this.spawnFighter();
 				tween.stop();
@@ -80,39 +78,15 @@ class Game {
 		this.scene.add(cube);
 	}
 
-	isHit(pos) {
-		var direction = this.getNormalizedDirectoin();
-		//this.visualizeRay(pos, direction);
-		var ray = new THREE.Raycaster(pos, direction);
-		var collisionResults = ray.intersectObjects([this.tieFighter]);
-		if (collisionResults.length > 0) {
-			debugger;
-			console.log("Hit");
-		}
-	}
-
-	visualizeRay(pointA, direction) {
-		var distance = 100; // at what distance to determine pointB
-
-		var pointB = new THREE.Vector3();
-		pointB.addVectors(pointA, direction.multiplyScalar(distance));
-
-		var geometry = new THREE.Geometry();
-		geometry.vertices.push(pointA);
-		geometry.vertices.push(pointB);
-		var material = new THREE.LineBasicMaterial({
-			color: 0xff0000
-		});
-		var line = new THREE.Line(geometry, material);
-		this.scene.add(line);
-	}
-
 	update() {
 		if (!this.fighterInScene) {
 			this.spawnFighter();
 		}
 		if (this.boxHelper) {
 			this.boxHelper.update();
+		}
+		if(this.tieFighter) {
+			this.tieFighterBox = new THREE.Box3().setFromObject(this.tieFighter);
 		}
 	}
 
