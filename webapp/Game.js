@@ -25,22 +25,19 @@ class Game {
 	}
 
 	onClick() {
-		this.fighter = this.add3DObject(this.tieFighter);
-		var initialPos = this.fighter.position.clone();
-		var target = this.getPositionWithOffset(5);
+		var fighter = this.tieFighter;
+		var target = this.getPositionWithOffset(1);
+		target.x -= Math.random();
+		var initialPos = target.clone();
+		initialPos.z -= 10;
+		fighter.position.copy(initialPos);
+		fighter.quaternion.copy(this.getOrientation());
+		this.scene.add(fighter);
 		var tween = new TWEEN.Tween(initialPos).to(target, 2000);
 		tween.onUpdate(function() {
-			this.fighter.position.x = initialPos.x;
-			this.fighter.position.y = initialPos.y;
-		}.bind(this));
+			fighter.position.z = initialPos.z;
+		});
 		tween.start();
-	}
-
-	add3DObject(obj, vrFrameData) {
-		obj.position.copy(this.getPositionWithOffset(1));
-		obj.quaternion.copy(this.getOrientation());
-		this.scene.add(obj);
-		return obj;
 	}
 	
 	getPositionWithOffset(offset) {
