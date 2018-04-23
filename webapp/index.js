@@ -105,10 +105,16 @@ function update() {
     // Render our three.js virtual scene
     renderer.clearDepth();
     renderer.render(scene, camera);
-
+    
+    TWEEN.update();
+    
     // Kick off the requestAnimationFrame to call this function
     // when a new VRDisplay frame is rendered
     vrDisplay.requestAnimationFrame(update);
+    
+    if(game) {
+    	game.update();
+    }
 }
 
 /**
