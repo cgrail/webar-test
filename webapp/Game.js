@@ -17,9 +17,9 @@ class Game {
 						var scale = 0.1
 						object.scale.set(scale, scale, scale);
 						this.tieFighter = object;
-						this.boxHelper = new THREE.BoxHelper( this.tieFighter );
-						this.boxHelper.material.color.set( 0xffffff );
-						this.scene.add( this.boxHelper );
+						// this.boxHelper = new THREE.BoxHelper( this.tieFighter );
+						// this.boxHelper.material.color.set( 0xffffff );
+						// this.scene.add( this.boxHelper );
 					}.bind(this));
 			}.bind(this));
 	}
