@@ -53,6 +53,11 @@ function init() {
         vrDisplay.depthNear,
         vrDisplay.depthFar
     );
+	var pointLight = new THREE.PointLight( 0xffffff, 0.8 );
+	camera.add( pointLight );
+
+	var ambientLight = new THREE.AmbientLight( 0xFFFFFF, 0.4 );
+	scene.add( ambientLight );
 
     // VRControls is a utility from three.js that applies the device's
     // orientation/position to the perspective camera, keeping our
