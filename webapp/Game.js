@@ -53,29 +53,29 @@ class Game {
 		var material = new THREE.MeshBasicMaterial({
 			color: 0xff0000
 		});
-		var cube = new THREE.Mesh(geometry, material);
+		var laser = new THREE.Mesh(geometry, material);
 		var startPosition = this.getPositionWithOffset(0.5);
 		startPosition.y -= 0.2;
 		var endPosition = this.getPositionWithOffset(10);
-		cube.position.copy(startPosition);
-		cube.quaternion.copy(this.getOrientation());
+		laser.position.copy(startPosition);
+		laser.quaternion.copy(this.getOrientation());
 		var tween = new TWEEN.Tween(startPosition).to(endPosition, 2000);
 		tween.onUpdate(function() {
-			cube.position.x = startPosition.x;
-			cube.position.y = startPosition.y;
-			cube.position.z = startPosition.z;
-			var laserBox = new THREE.Box3().setFromObject(cube);
+			laser.position.x = startPosition.x;
+			laser.position.y = startPosition.y;
+			laser.position.z = startPosition.z;
+			var laserBox = new THREE.Box3().setFromObject(laser);
 			if (this.tieFighterBox.intersectsBox(laserBox)) {
-				scene.remove(cube);
+				scene.remove(laser);
 				this.spawnFighter();
 				tween.stop();
 			}
 		}.bind(this));
 		tween.onComplete(function() {
-			this.scene.remove(cube);
+			this.scene.remove(laser);
 		}.bind(this));
 		tween.start();
-		this.scene.add(cube);
+		this.scene.add(laser);
 	}
 
 	update() {
