@@ -7,12 +7,17 @@ class Game {
     var manager = new THREE.LoadingManager();
     var textureLoader = new THREE.TextureLoader( manager );
 
-    var loader = new THREE.OBJLoader( manager );
-    loader.load('assets/tie.obj', function ( object ) {
-      var scale = 0.1
-      object.scale.set(scale, scale, scale);
-      this.maleObj = object;
-    }.bind(this));
+  new THREE.MTLLoader()
+    .load( 'assets/materials.mtl', function ( materials ) {
+      materials.preload();
+      new THREE.OBJLoader()
+      .setMaterials( materials )
+      .load( 'assets/tie.obj', function ( object ) {
+        var scale = 0.1
+          object.scale.set(scale, scale, scale);
+          this.maleObj = object;
+      }.bind(this));
+    }.bind(this) );
   }
 
   onClick() {
