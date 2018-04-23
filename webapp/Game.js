@@ -15,20 +15,13 @@ class Game {
       .load( '3dmodel/tie.obj', function ( object ) {
         var scale = 0.1
           object.scale.set(scale, scale, scale);
-          this.maleObj = object;
+          this.tieFighter = object;
       }.bind(this));
     }.bind(this) );
   }
 
   onClick() {
-    this.add3DObject(this.maleObj);
-  }
-
-  getCone() {
-    var geometry = new THREE.ConeGeometry( 0.1, 0.1, 0.1 );
-    var material = new THREE.MeshBasicMaterial( {color: 0xFF00FF} );
-    var cone = new THREE.Mesh( geometry, material );
-    return cone;
+    this.add3DObject(this.tieFighter);
   }
 
   add3DObject(obj, vrFrameData) {
