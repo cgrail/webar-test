@@ -22,7 +22,7 @@ class Game {
 	}
 
 	spawnFighter() {
-		if(!this.tieFighter) {
+		if (!this.tieFighter) {
 			return;
 		}
 		var fighter = this.tieFighter;
@@ -42,11 +42,32 @@ class Game {
 	}
 
 	onClick() {
-
+		this.shoot();
 	}
-	
+
+	shoot() {
+		var geometry = new THREE.BoxGeometry(0.03, 0.03, 2);
+		var material = new THREE.MeshBasicMaterial({
+			color: 0xff0000
+		});
+		var cube = new THREE.Mesh(geometry, material);
+		var startPosition = this.getPositionWithOffset(0.5);
+		startPosition.y -= 0.2;
+		var endPosition = this.getPositionWithOffset(10);
+		cube.position.copy(startPosition);
+		cube.quaternion.copy(this.getOrientation());
+		var tween = new TWEEN.Tween(startPosition).to(endPosition, 2000);
+		tween.onUpdate(function() {
+			cube.position.x = startPosition.x;
+			cube.position.y = startPosition.y;
+			cube.position.z = startPosition.z;
+		});
+		tween.start();
+		this.scene.add(cube);
+	}
+
 	update() {
-		if(!this.fighterInScene) {
+		if (!this.fighterInScene) {
 			this.spawnFighter();
 		}
 	}
