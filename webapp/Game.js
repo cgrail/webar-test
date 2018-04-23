@@ -17,6 +17,9 @@ class Game {
 						var scale = 0.1
 						object.scale.set(scale, scale, scale);
 						this.tieFighter = object;
+						this.boxHelper = new THREE.BoxHelper( this.tieFighter );
+						this.boxHelper.material.color.set( 0xffffff );
+						this.scene.add( this.boxHelper );
 					}.bind(this));
 			}.bind(this));
 	}
@@ -62,7 +65,14 @@ class Game {
 			cube.position.x = startPosition.x;
 			cube.position.y = startPosition.y;
 			cube.position.z = startPosition.z;
-		});
+			var box = new THREE.Box3().setFromObject(this.tieFighter);
+			var laserBox = new THREE.Box3().setFromObject(cube);
+			if (box.intersectsBox(laserBox)) {
+				scene.remove(cube);
+				this.spawnFighter();
+				tween.stop();
+			}
+		}.bind(this));
 		tween.onComplete(function() {
 			this.scene.remove(cube);
 		}.bind(this));
@@ -100,6 +110,9 @@ class Game {
 	update() {
 		if (!this.fighterInScene) {
 			this.spawnFighter();
+		}
+		if (this.boxHelper) {
+			this.boxHelper.update();
 		}
 	}
 
