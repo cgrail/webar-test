@@ -107,13 +107,6 @@ class Game {
 			this.vrFrameData.pose.position[2]
 		);
 	}
-	
-	getNormalizedDirectoin() {
-		var direction = new THREE.Vector3(0, 0, -1);
-		direction.applyQuaternion(this.getOrientation());
-		direction.normalize();
-		return direction;
-	}
 
 	getOrientation() {
 		return new THREE.Quaternion(
