@@ -3,6 +3,7 @@ class Game {
 	constructor(scene, vrFrameData) {
 		this.scene = scene;
 		this.vrFrameData = vrFrameData;
+		this.fighterInScene = false;
 
 		var manager = new THREE.LoadingManager();
 		var textureLoader = new THREE.TextureLoader(manager);
@@ -20,11 +21,10 @@ class Game {
 			}.bind(this));
 	}
 
-	update() {
-
-	}
-
-	onClick() {
+	spawnFighter() {
+		if(!this.tieFighter) {
+			return;
+		}
 		var fighter = this.tieFighter;
 		var target = this.getPositionWithOffset(1);
 		target.x -= Math.random();
@@ -38,8 +38,19 @@ class Game {
 			fighter.position.z = initialPos.z;
 		});
 		tween.start();
+		this.fighterInScene = true;
+	}
+
+	onClick() {
+
 	}
 	
+	update() {
+		if(!this.fighterInScene) {
+			this.spawnFighter();
+		}
+	}
+
 	getPositionWithOffset(offset) {
 		var dirMtx = new THREE.Matrix4();
 		dirMtx.makeRotationFromQuaternion(this.getOrientation());
@@ -48,8 +59,8 @@ class Game {
 		var pos = this.getPosition();
 		pos.addScaledVector(push, offset);
 		return pos;
-	} 
-	
+	}
+
 	getPosition() {
 		return new THREE.Vector3(
 			this.vrFrameData.pose.position[0],
@@ -57,7 +68,7 @@ class Game {
 			this.vrFrameData.pose.position[2]
 		);
 	}
-	
+
 	getOrientation() {
 		return new THREE.Quaternion(
 			this.vrFrameData.pose.orientation[0],
