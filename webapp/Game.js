@@ -4,7 +4,7 @@ class Game {
 		this.scene = scene;
 		this.vrFrameData = vrFrameData;
 		this.fighterInScene = false;
-
+		
 		var manager = new THREE.LoadingManager();
 		var textureLoader = new THREE.TextureLoader(manager);
 
@@ -68,6 +68,8 @@ class Game {
 			if (this.tieFighterBox.intersectsBox(laserBox)) {
 				scene.remove(laser);
 				this.explode();
+				var explosion = new Audio("sound/Explosion.mp3");
+				explosion.play();		
 				this.spawnFighter();
 				tween.stop();
 			}
@@ -77,6 +79,8 @@ class Game {
 		}.bind(this));
 		tween.start();
 		this.scene.add(laser);
+		var laserFire = new Audio("sound/Laser.mp3");
+		laserFire.play();
 	}
 
 	update() {
