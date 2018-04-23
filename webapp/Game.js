@@ -8,11 +8,11 @@ class Game {
     var textureLoader = new THREE.TextureLoader( manager );
 
   new THREE.MTLLoader()
-    .load( 'assets/materials.mtl', function ( materials ) {
+    .load( '3dmodel/materials.mtl', function ( materials ) {
       materials.preload();
       new THREE.OBJLoader()
       .setMaterials( materials )
-      .load( 'assets/tie.obj', function ( object ) {
+      .load( '3dmodel/tie.obj', function ( object ) {
         var scale = 0.1
           object.scale.set(scale, scale, scale);
           this.maleObj = object;
