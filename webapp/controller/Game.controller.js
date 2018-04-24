@@ -83,6 +83,10 @@ sap.ui.define([
 		getScene: function() {
 			return this.arView.getThreeContext().scene;
 		},
+		
+		getVrFrameData: function() {
+			return this.arView.getThreeContext().vrFrameData;
+		},
 
 		getPositionWithOffset: function(offset) {
 			var dirMtx = new THREE.Matrix4();
@@ -95,7 +99,7 @@ sap.ui.define([
 		},
 
 		getPosition: function() {
-			var vrFrameData = this.arView.getThreeContext().vrFrameData;
+			var vrFrameData = this.getVrFrameData();
 			return new THREE.Vector3(
 				vrFrameData.pose.position[0],
 				vrFrameData.pose.position[1],
@@ -104,7 +108,7 @@ sap.ui.define([
 		},
 
 		getOrientation: function() {
-			var vrFrameData = this.arView.getThreeContext().vrFrameData;
+			var vrFrameData = this.getVrFrameData();
 			return new THREE.Quaternion(
 				vrFrameData.pose.orientation[0],
 				vrFrameData.pose.orientation[1],
