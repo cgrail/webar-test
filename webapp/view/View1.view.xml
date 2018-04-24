@@ -1,9 +1,15 @@
-<mvc:View controllerName="webar-test.controller.View1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
-	displayBlock="true" xmlns="sap.m">
+<mvc:View controllerName="webar-test.controller.View1" 
+	xmlns:html="http://www.w3.org/1999/xhtml" 
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:control="webar-test.control"
+	xmlns="sap.m"
+	displayBlock="true">
 	<App>
 		<pages>
-			<Page title="Hallo Welt">
-				<content></content>
+			<Page title="Augmented Reality">
+				<content>
+					<control:ArView />	
+				</content>
 			</Page>
 		</pages>
 	</App>
