@@ -1,6 +1,0 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
-	xmlns:control="webar-test.control"
-	controllerName="webar-test.controller.App">
-	<control:ArView id="arView"/>
-	<Button id="helloButton" type="Emphasized" icon="sap-icon://sap-ui5" text="Say Hello" press="onShowHello" class="sapUiSmallMargin"/>
-</mvc:View>
