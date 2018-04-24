@@ -30,10 +30,6 @@ sap.ui.core.Control.extend("webar-test.control.ArView", {
 		});
 
 		function init() {
-			// Turn on the debugging panel
-			var arDebug = new THREE.ARDebug(vrDisplay);
-			document.body.appendChild(arDebug.getElement());
-
 			// Setup the three.js rendering environment
 			renderer = new THREE.WebGLRenderer({
 				alpha: true,
@@ -42,7 +38,6 @@ sap.ui.core.Control.extend("webar-test.control.ArView", {
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			renderer.autoClear = false;
 			canvas = renderer.domElement;
-			var currentElement = document.getElementById(viewId);
 			document.body.appendChild(canvas);
 			scene = new THREE.Scene();
 
@@ -117,17 +112,6 @@ sap.ui.core.Control.extend("webar-test.control.ArView", {
 			// when a new VRDisplay frame is rendered
 			vrDisplay.requestAnimationFrame(update);
 
-		}
-
-		/**
-		 * On window resize, update the perspective camera's aspect ratio,
-		 * and call `updateProjectionMatrix` so that we can get the latest
-		 * projection matrix provided from the device
-		 */
-		function onWindowResize() {
-			camera.aspect = window.innerWidth / window.innerHeight;
-			camera.updateProjectionMatrix();
-			renderer.setSize(window.innerWidth, window.innerHeight);
 		}
 
 	},

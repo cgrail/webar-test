@@ -16,15 +16,6 @@
 			data-sap-ui-resourceroots='{"webar-test": ""}'>
 		</script>
 
-		<link rel="stylesheet" type="text/css" href="css/style.css">
-
-		<script>
-			sap.ui.getCore().attachInit(function() {
-				sap.ui.xmlview({
-				  viewName: "webar-test.App"
-				}).placeAt("content");
-			});
-		</script>
 	    <script src="//google-ar.github.io/three.ar.js/third_party/three.js/three.js"></script>
 	    <script src="//google-ar.github.io/three.ar.js/third_party/three.js/VRControls.js"></script>
 	    <script src="//google-ar.github.io/three.ar.js/dist/three.ar.js"></script>
@@ -37,6 +28,14 @@
 	<body class="sapUiBody" id="content" style="background: transparent">
 		<!--<script src="Game.js"></script>-->
 	 <!--   <script src="index.js"></script>-->
+	 
+ 		<script>
+			sap.ui.getCore().attachInit(function() {
+				sap.ui.xmlview({
+				  viewName: "webar-test.view.App"
+				}).placeAt("content");
+			});
+		</script>
 	</body>
 
 </html>
