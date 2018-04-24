@@ -1,11 +1,16 @@
 sap.ui.core.Control.extend("webar-test.control.ArView", {
 	metadata: {
 		properties: {
-			"name": "string"
+			"threeContext": "any"
 		}
 	},
 
 	onAfterRendering: function() {
+		
+		if (this.arViewInitialized) {
+			return;
+		}
+		this.arViewInitialized = true; 
 
 		var vrDisplay;
 		var vrControls;
@@ -18,6 +23,7 @@ sap.ui.core.Control.extend("webar-test.control.ArView", {
 		var renderer;
 		
 		var viewId = this.getId();
+		var that = this;
 
 		THREE.ARUtils.getARDisplay().then(function(display) {
 			if (display) {
@@ -40,6 +46,10 @@ sap.ui.core.Control.extend("webar-test.control.ArView", {
 			canvas = renderer.domElement;
 			document.body.appendChild(canvas);
 			scene = new THREE.Scene();
+			that.setThreeContext({
+				scene: scene,
+				vrFrameData: vrFrameData
+			});
 
 			// Creating the ARView, which is the object that handles
 			// the rendering of the camera stream behind the three.js
